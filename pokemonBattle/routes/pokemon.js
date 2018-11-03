@@ -5,37 +5,13 @@ var router = express.Router();
 var request = require('request');
 var bodyParser = require('body-parser');
 
+var __request = require('multiple-requests-promise'); //might work
+
 // app.use(express.static('public'));
 // app.set('view engine', 'ejs');
 app.use(bodyParser.json()); // to support JSON bodies
 app.use(bodyParser.urlencoded({ extended: true }));
 let weaknessOutput = [];
-
-function asyncRequestWeakness(val) {
-  let subWeakness = [];
-
-  request(val, function(error2, response2, body2) {
-    if (!error2 && response2.statusCode == 200) {
-      var damageOutPut = JSON.parse(body2);
-      let weaknessVariable = damageOutPut.damage_relations.double_damage_from;
-
-      for (let a = 0; a < weaknessVariable.length; a++) {
-        subWeakness.push(weaknessVariable[a].name);
-        // weaknessOutput.push(weaknessVariable[a].name);
-        console.log('weaknessName', weaknessVariable[a].name);
-        // return weaknessVariable[a].name;
-      }
-    }
-    // console.log('layer02', weaknessOutput);
-    console.log('subweakness', subWeakness);
-    return subWeakness;
-  });
-
-  // console.log('layer03', weaknessOutput);
-  // return weaknessOutput;
-
-  // return subWeakness;
-}
 
 router.get('/', function(req, res) {
   var url = 'https://pokeapi.co/api/v2/pokemon/bulbasaur/';
@@ -129,5 +105,70 @@ router.post('/name', function(req, res) {
     }
   });
 });
+
+router.post('/type', function(req, res) {
+  // selectedPokemon = 'charizard';
+
+  let pokemonClient = req.body.pokemon;
+  let pokemonWeakness = [];
+  let pokemon2Client = req.body.pokemon2;
+  let pokemon2Weakness = [];
+
+  // console.log('received', pokemonClient);
+
+  for (let a = 0; a < pokemonClient.length; a++) {
+    // const weakness22 = await getBreeds();
+
+    console.log('this is not working', a);
+    console.log(pokemonClient.length);
+    let pokemonURL = pokemonClient[a];
+    // console.log('weaknessName', pokemonURL);
+    request(pokemonURL, function(error, response, body) {
+      if (!error && response.statusCode == 200) {
+        var outPut = JSON.parse(body);
+        let weaknessVariable = outPut.damage_relations.double_damage_from;
+        console.log(weaknessVariable);
+        pokemonWeakness.push(weaknessVariable);
+      }
+      console.log('2nd tier', pokemonWeakness);
+      res.send(pokemonWeakness);
+    });
+  }
+
+  // console.log('last tier', pokemonWeakness);
+
+  const pokemonOut = {
+    pokemon1Weakness: pokemonClient,
+    pokemon2Weakness: pokemon2Client
+  };
+
+  // console.log(pokemon);
+
+  // const selectedPokemon = req.body;
+  // console.log('OPTIONS', selectedPokemon);
+  // console.log('p1', pokemon);
+  // console.log('p2', pokemon2);
+
+  // var url = 'https://pokeapi.co/api/v2/pokemon/' + selectedPokemon;
+});
+
+// function asyncRequestWeakness(val) {
+//   let subWeakness = [];
+
+//   request(val, function(error2, response2, body2) {
+//     if (!error2 && response2.statusCode == 200) {
+//       var damageOutPut = JSON.parse(body2);
+//       let weaknessVariable = damageOutPut.damage_relations.double_damage_from;
+
+//       for (let a = 0; a < weaknessVariable.length; a++) {
+//         subWeakness.push(weaknessVariable[a].name);
+//         // weaknessOutput.push(weaknessVariable[a].name);
+//         console.log('weaknessName', weaknessVariable[a].name);
+//       }
+//     }
+//     console.log('subweakness', subWeakness);
+//     return subWeakness;
+//   });
+// }
 
 module.exports = router;
