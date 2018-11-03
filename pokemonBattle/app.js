@@ -10,6 +10,12 @@ var pokemonRouter = require('./routes/pokemon');
 
 var app = express();
 
+// import cors from 'cors';
+var cors = require('cors');
+
+// Enable All CORS Requests
+app.use(cors());
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
