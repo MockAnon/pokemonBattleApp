@@ -88,14 +88,16 @@ router.get('/', function(req, res) {
   });
 });
 
-router.get('/name', function(req, res) {
-  selectedPokemon = 'charizard';
+router.post('/name', function(req, res) {
+  // selectedPokemon = 'charizard';
+
+  const selectedPokemon = req.body.pokemonVal;
+  console.log('OPTIONS', selectedPokemon);
 
   var url = 'https://pokeapi.co/api/v2/pokemon/' + selectedPokemon;
   request(url, function(error, response, body) {
     if (!error && response.statusCode == 200) {
       var outPut = JSON.parse(body);
-      // console.log(body);
 
       const typesOutput = [];
       const weaknessUrlOutput = [];
@@ -110,18 +112,6 @@ router.get('/name', function(req, res) {
         typesOutput.push(outPut.types[i].type.name);
         let urlWeak = outPut.types[i].type.url;
         weaknessUrlOutput.push(urlWeak);
-
-        // const makeWork = async() => {
-        //   const a = await asyncRequestWeakness(urlWeak);
-        // }
-
-        // console.log('returned', asyncRequestWeakness(urlWeak));
-        // let subWeaknessReturn = asyncRequestWeakness(urlWeak);
-        // console.log('subweak01', subWeaknessReturn);
-
-        // weaknessOutput.push(asyncRequestWeakness(urlWeak));
-
-        // console.log('returns', weaknessOutput.push(asyncRequestWeakness(urlWeak)));
       }
 
       const pokemon = {
@@ -130,7 +120,6 @@ router.get('/name', function(req, res) {
         types: typesOutput,
         sprites: outPut.sprites.front_default,
         weakUrl: weaknessUrlOutput,
-        // weakness: weaknessOutput,
         statsAll: base_statAllOutput
       };
 
