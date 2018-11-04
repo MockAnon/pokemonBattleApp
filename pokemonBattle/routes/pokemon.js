@@ -107,50 +107,53 @@ router.post('/name', function(req, res) {
 });
 
 router.post('/type', function(req, res) {
-  // selectedPokemon = 'charizard';
+  let received = req.body.data;
+  console.log('received', received);
 
-  let pokemonClient = req.body.pokemon;
-  let pokemonWeakness = [];
-  let pokemon2Client = req.body.pokemon2;
-  let pokemon2Weakness = [];
-
-  // console.log('received', pokemonClient);
-
-  for (let a = 0; a < pokemonClient.length; a++) {
-    // const weakness22 = await getBreeds();
-
-    console.log('this is not working', a);
-    console.log(pokemonClient.length);
-    let pokemonURL = pokemonClient[a];
-    // console.log('weaknessName', pokemonURL);
-    request(pokemonURL, function(error, response, body) {
-      if (!error && response.statusCode == 200) {
-        var outPut = JSON.parse(body);
-        let weaknessVariable = outPut.damage_relations.double_damage_from;
-        console.log(weaknessVariable);
-        pokemonWeakness.push(weaknessVariable);
-      }
-      console.log('2nd tier', pokemonWeakness);
-      res.send(pokemonWeakness);
-    });
-  }
-
-  // console.log('last tier', pokemonWeakness);
-
-  const pokemonOut = {
-    pokemon1Weakness: pokemonClient,
-    pokemon2Weakness: pokemon2Client
-  };
-
-  // console.log(pokemon);
-
-  // const selectedPokemon = req.body;
-  // console.log('OPTIONS', selectedPokemon);
-  // console.log('p1', pokemon);
-  // console.log('p2', pokemon2);
-
-  // var url = 'https://pokeapi.co/api/v2/pokemon/' + selectedPokemon;
+  request(received, function(error, response, body) {
+    if (!error && response.statusCode == 200) {
+      var outPut = JSON.parse(body);
+      let weaknessVariable = outPut.damage_relations.double_damage_from;
+      console.log('weakness', weaknessVariable);
+      res.send(weaknessVariable);
+    }
+  });
 });
+
+// for (let a = 0; a < pokemonClient.length; a++) {
+//   // const weakness22 = await getBreeds();
+
+//   console.log('this is not working', a);
+//   console.log(pokemonClient.length);
+//   let pokemonURL = pokemonClient[a];
+//   // console.log('weaknessName', pokemonURL);
+//   request(pokemonURL, function(error, response, body) {
+//     if (!error && response.statusCode == 200) {
+//       var outPut = JSON.parse(body);
+//       let weaknessVariable = outPut.damage_relations.double_damage_from;
+//       console.log(weaknessVariable);
+//       pokemonWeakness.push(weaknessVariable);
+//     }
+//     console.log('2nd tier', pokemonWeakness);
+//     res.send(pokemonWeakness);
+//   });
+// }
+
+// console.log('last tier', pokemonWeakness);
+
+// const pokemonOut = {
+//   pokemon1Weakness: pokemonClient,
+//   pokemon2Weakness: pokemon2Client
+// };
+
+// console.log(pokemon);
+
+// const selectedPokemon = req.body;
+// console.log('OPTIONS', selectedPokemon);
+// console.log('p1', pokemon);
+// console.log('p2', pokemon2);
+
+// var url = 'https://pokeapi.co/api/v2/pokemon/' + selectedPokemon;
 
 // function asyncRequestWeakness(val) {
 //   let subWeakness = [];
