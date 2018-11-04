@@ -163,7 +163,10 @@ class Battle extends Component {
 
     //          run through all weaknesses of pokemon vs types of pokemon2
     let pokemonWeakOut = '';
+    let pokemonWeakRender = '';
+
     let pokemon2WeakOut = '';
+    let pokemon2WeakRender = '';
 
     if (pokemonWeaknessRender instanceof Array) {
       for (let i = 0; i < pokemonWeaknessRender.length; i++) {
@@ -173,6 +176,10 @@ class Battle extends Component {
           }
         }
       }
+    }
+
+    if (pokemonWeaknessRender instanceof Array) {
+      pokemonWeakRender = pokemonWeaknessRender.map(type => <p key={type}> {type} </p>);
     }
 
     if (pokemon2WeaknessRender instanceof Array) {
@@ -185,19 +192,22 @@ class Battle extends Component {
       }
     }
 
+    if (pokemon2WeaknessRender instanceof Array) {
+      pokemon2WeakRender = pokemon2WeaknessRender.map(type => <p key={type}> {type} </p>);
+    }
+
     return (
-      <div>
+      <React.Fragment>
         <div className="battleBox">
           <p>{pokemonWeakOut}</p>
           <p>{pokemon2WeakOut}</p>
           <p>{statsOutcome}</p>
           <button onClick={this._handleBattle}> BATTLE! </button>
         </div>
-        {/* <Types pokemon={pokemon.types} pokemonWeak={this.state.pokemonWeak} pokemon2Weak={this.state.pokemon2Weak} pokemon2={pokemon2.types} /> */}
-        <div className="battle" />
+
         <div className="poke01">
+          <img src={this.state.pokemon.sprites} alt="pokemon image" />
           <div>
-            <p> pokemon 1 </p>
             <select defaultValue={this.state.value} onChange={this._handleChange}>
               <option value="bulbasaur">bulbasaur</option>
               <option value="charizard">charizard</option>
@@ -205,20 +215,19 @@ class Battle extends Component {
               <option value="blastoise">blastoise</option>
             </select>
           </div>
-          <img src={this.state.pokemon.sprites} alt="pokemon image" />
-          <p> {this.state.pokemon.name} </p>
+
+          <p> Player Ones: {this.state.pokemon.name} </p>
           <p> Stats Sum: {this.state.pokemon.statsAll} </p>
           <div>
-            <p> type: </p>
+            <p> Pokemon Type: </p>
             <ul>{pokemonType}</ul>
-            <p>
-              {this.state.pokemon.name}s weakness: {pokemonWeaknessRender}
-            </p>
+            <p> Weakness: </p>
+            <ul>{pokemonWeakRender}</ul>
           </div>
         </div>
         <div className="poke02">
           <div>
-            <p> pokemon 2 </p>
+            <img src={this.state.pokemon2.sprites} alt="pokemon image" />
             <select defaultValue={this.state.value} onChange={this._handleChange2}>
               <option value="bulbasaur">bulbasaur</option>
               <option value="charizard">charizard</option>
@@ -226,18 +235,17 @@ class Battle extends Component {
               <option value="blastoise">blastoise</option>
             </select>
           </div>
-          <img src={this.state.pokemon2.sprites} alt="pokemon image" />
-          <p> {this.state.pokemon2.name} </p>
+
+          <p> Player Twos: {this.state.pokemon2.name} </p>
           <p> Stats Sum: {this.state.pokemon2.statsAll} </p>
           <div>
-            <p> type: </p>
+            <p> Pokemon Type: </p>
             <ul>{pokemonType2}</ul>
-            <p>
-              {this.state.pokemon2.name}s weakness: {pokemon2WeaknessRender}
-            </p>
+            <p> Weakness: </p>
+            <ul>{pokemon2WeakRender}</ul>
           </div>
         </div>
-      </div>
+      </React.Fragment>
     );
   }
 }
