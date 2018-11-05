@@ -7,7 +7,6 @@ var bodyParser = require('body-parser');
 
 app.use(bodyParser.json()); // to support JSON bodies
 app.use(bodyParser.urlencoded({ extended: true }));
-let weaknessOutput = [];
 
 router.get('/', function(req, res) {
   var url = 'https://pokeapi.co/api/v2/pokemon/bulbasaur/';

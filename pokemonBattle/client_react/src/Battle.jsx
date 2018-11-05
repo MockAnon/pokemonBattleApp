@@ -80,6 +80,7 @@ class Battle extends Component {
       });
   };
 
+  //          user pressed battle button!!!
   _handleBattle = event => {
     let pokemonUrlList = this.state.pokemon.weakUrl;
     let pokemon2UrlList = this.state.pokemon2.weakUrl;
@@ -142,6 +143,7 @@ class Battle extends Component {
       }
     }
 
+    //              print types
     let pokemonType = '';
     let pokemonType2 = '';
 
@@ -153,7 +155,7 @@ class Battle extends Component {
       pokemonType2 = pokemon2.types.map(type => <p key={type}> {type} </p>);
     }
 
-    //    battle stats
+    //                battle stats
 
     let statsOutcome = '';
 
@@ -176,7 +178,7 @@ class Battle extends Component {
         pokeWinner();
       }
     }
-    //            run through stats advantages between two pokemon
+    //            clean up weakness data, placing it into a single array.
     let pokemon2WeaknessRender = [];
     let pokemonWeaknessRender = [];
 
@@ -196,7 +198,7 @@ class Battle extends Component {
       }
     }
 
-    //          run through all weaknesses of pokemon vs types of pokemon2
+    //          run through all weaknesses of pokemon and pokemon2 monsters
     let pokemonWeakOut = '';
     let pokemonWeakRender = '';
 
