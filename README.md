@@ -1,3 +1,5 @@
+!["Screenshot of chatty app messages"](https://github.com/MockAnon/pokemonBattleApp/blob/master/docs/shot_001.png)
+
 # pokemonBattleApp
 
 ## App Setup
