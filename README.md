@@ -7,7 +7,7 @@
 1. Clone this repository
 2. Enter "cd pokemonBattle" into your terminal.
 3. Within your pokemonBattle folder "git install" the dependencies.
-4. NOTE: The pokemonBattle folder is your server file. This must be launched used "npm start" before launching the client.
+4. NOTE: The pokemonBattle folder is your server file. This must be launched using "npm start" before launching the client.
 5. Enter "cd client_react" into your terminal.
 6. Within your client_react folder "git install" the dependencies.
 7. The folder client react is this projects client side.
